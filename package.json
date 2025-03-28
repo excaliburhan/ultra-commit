@@ -2,7 +2,7 @@
   "name": "ultra-commit",
   "displayName": "Ultra Commit",
   "description": "基本能力完全 Fork 自 AI Commit。支持使用阿里云百炼、OPEN_AI、AI Studio 的 API 来根据暂存区的改动文件生成 Git Commit 信息",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "node": ">=16",
     "vscode": "^1.77.0"
@@ -39,9 +39,10 @@
           "default": "bailian",
           "enum": [
             "bailian",
-            "openai"
+            "openai",
+            "ai-studio"
           ],
-          "description": "选择 AI 提供商 (阿里云百炼、OpenAI)"
+          "description": "选择 AI 提供商 (阿里云百炼、OpenAI、AI Studio)"
         },
         "ultra-commit.AI_COMMIT_LANGUAGE": {
           "default": "Simplified Chinese",
@@ -145,6 +146,21 @@
           "minimum": 0,
           "maximum": 1,
           "description": "阿里云百炼核采样参数，控制输出的多样性"
+        },
+        "ultra-commit.AI_STUDIO_API_KEY": {
+          "type": "string",
+          "default": "",
+          "description": "AI Studio API Key"
+        },
+        "ultra-commit.AI_STUDIO_MODEL": {
+          "type": "string",
+          "default": "qwen2.5-max",
+          "enum": [
+            "qwen2.5-max",
+            "DeepSeek-R1-671B",
+            "DeepSeek-V3-671B"
+          ],
+          "description": "AI Studio模型选择"
         }
       }
     },

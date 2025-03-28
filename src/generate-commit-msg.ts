@@ -7,6 +7,7 @@ import { ChatGPTAPI } from './openai-utils';
 import { getMainCommitPrompt } from './prompts';
 import { ProgressHandler } from './utils';
 import { BailianAPI } from './bailian-utils';
+import { AiStudioAPI } from './ai-studio-utils';
 
 /**
  * Generates a chat completion prompt for the commit message based on the provided diff.
@@ -72,7 +73,7 @@ export async function generateCommitMsg(arg) {
 
       const aiProvider = configManager.getConfig<string>(ConfigKeys.AI_PROVIDER, 'bailian');
 
-      progress.report({ message: 'Getting staged changes...' });
+      progress.report({ message: `[${aiProvider}]Getting staged changes...` });
       const { diff, error } = await getDiffStaged(repo);
 
       if (error) {
@@ -91,14 +92,16 @@ export async function generateCommitMsg(arg) {
       const additionalContext = scmInputBox.value.trim();
 
       progress.report({
-        message: additionalContext ? 'Analyzing changes with additional context...' : 'Analyzing changes...'
+        message: additionalContext
+          ? `[${aiProvider}]Analyzing changes with additional context...`
+          : `[${aiProvider}]Analyzing changes...`
       });
       const messages = await generateCommitMessageChatCompletionPrompt(diff, additionalContext);
 
       progress.report({
         message: additionalContext
-          ? 'Generating commit message with additional context...'
-          : 'Generating commit message...'
+          ? `[${aiProvider}]Generating commit message with additional context...`
+          : `[${aiProvider}]Generating commit message...`
       });
       try {
         let commitMessage: string | undefined;
@@ -109,6 +112,12 @@ export async function generateCommitMsg(arg) {
             throw new Error('Bailian API Key not configured');
           }
           commitMessage = await BailianAPI(messages);
+        } else if (aiProvider === 'ai-studio') {
+          const aiStudioApiKey = configManager.getConfig<string>(ConfigKeys.AI_STUDIO_API_KEY);
+          if (!aiStudioApiKey) {
+            throw new Error('AI Studio API Key not configured');
+          }
+          commitMessage = await AiStudioAPI(messages);
         } else {
           const openaiApiKey = configManager.getConfig<string>(ConfigKeys.OPENAI_API_KEY);
           if (!openaiApiKey) {
