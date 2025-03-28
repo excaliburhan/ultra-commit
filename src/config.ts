@@ -21,14 +21,13 @@ export enum ConfigKeys {
   SYSTEM_PROMPT = 'AI_COMMIT_SYSTEM_PROMPT',
   OPENAI_TEMPERATURE = 'OPENAI_TEMPERATURE',
 
-  GEMINI_API_KEY = 'GEMINI_API_KEY',
-  GEMINI_MODEL = 'GEMINI_MODEL',
-  GEMINI_TEMPERATURE = 'GEMINI_TEMPERATURE',
-
   BAILIAN_API_KEY = 'BAILIAN_API_KEY',
   BAILIAN_MODEL = 'BAILIAN_MODEL',
   BAILIAN_TEMPERATURE = 'BAILIAN_TEMPERATURE',
   BAILIAN_TOP_P = 'BAILIAN_TOP_P',
+
+  AI_STUDIO_API_KEY = 'AI_STUDIO_API_KEY',
+  AI_STUDIO_MODEL = 'AI_STUDIO_MODEL',
 
   AI_PROVIDER = 'AI_PROVIDER'
 }
@@ -39,7 +38,13 @@ export const BAILIAN_MODELS = {
   QWEN_TURBO: 'qwen-turbo'
 } as const;
 
-export type AIProvider = 'bailian' | 'openai';
+export const AI_STUDIO_MODELS = {
+  QWEN_MAX: 'qwen2.5-max',
+  DEEPSEEK_R1_671B: 'DeepSeek-R1-671B',
+  DEEPSEEK_V3: 'DeepSeek-V3-671B'
+} as const;
+
+export type AIProvider = 'bailian' | 'openai' | 'ai-studio';
 
 /**
  * Manages the configuration for the AI commit extension.
@@ -73,9 +78,16 @@ export class ConfigurationManager {
   getBailianConfig() {
     return {
       apiKey: this.getConfig<string>(ConfigKeys.BAILIAN_API_KEY, ''),
-      model: this.getConfig<string>(ConfigKeys.BAILIAN_MODEL, BAILIAN_MODELS.QWEN_TURBO),
+      model: this.getConfig<string>(ConfigKeys.BAILIAN_MODEL, BAILIAN_MODELS.QWEN_MAX),
       temperature: this.getConfig<number>(ConfigKeys.BAILIAN_TEMPERATURE, 0.7),
       topP: this.getConfig<number>(ConfigKeys.BAILIAN_TOP_P, 0.8)
+    };
+  }
+
+  getAiStudioConfig() {
+    return {
+      apiKey: this.getConfig<string>(ConfigKeys.AI_STUDIO_API_KEY, ''),
+      model: this.getConfig<string>(ConfigKeys.AI_STUDIO_MODEL, AI_STUDIO_MODELS.QWEN_MAX)
     };
   }
 
