@@ -11,7 +11,7 @@ export class ProgressHandler {
     return vscode.window.withProgress(
       {
         location: vscode.ProgressLocation.Notification,
-        title: `[AI Commit] ${title}`,
+        title: `[Ultra Commit] ${title}`,
         cancellable: true
       },
       task
