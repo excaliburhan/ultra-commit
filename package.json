@@ -1,0 +1,216 @@
+{
+  "name": "ultra-commit",
+  "displayName": "Ultra Commit",
+  "description": "基本能力完全 Fork 自 AI Commit。支持使用阿里云百炼、OPEN_AI、AI Studio 的 API 来根据暂存区的改动文件生成 Git Commit 信息",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=16",
+    "vscode": "^1.77.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "Bailian",
+    "Azure",
+    "OpenAI",
+    "ChatGPT",
+    "GitEmoji",
+    "Git Commit",
+    "Conventional Commits",
+    "Commitizen",
+    "Commit Message",
+    "Commit Message Generator",
+    "Ultra Commit",
+    "Auto Commit"
+  ],
+  "publisher": "edwardhjp",
+  "repository": "https://github.com/excaliburhan/ultra-commit",
+  "icon": "images/logo.png",
+  "activationEvents": [
+    "onCommand:ultra-commit"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "Ultra Commit Message Generator",
+      "properties": {
+        "ultra-commit.AI_PROVIDER": {
+          "type": "string",
+          "default": "bailian",
+          "enum": [
+            "bailian",
+            "openai"
+          ],
+          "description": "选择 AI 提供商 (阿里云百炼、OpenAI)"
+        },
+        "ultra-commit.AI_COMMIT_LANGUAGE": {
+          "default": "Simplified Chinese",
+          "description": "Commit message language",
+          "enum": [
+            "Simplified Chinese",
+            "Traditional Chinese",
+            "Japanese",
+            "Korean",
+            "Czech",
+            "German",
+            "French",
+            "Italian",
+            "Dutch",
+            "Portuguese",
+            "Vietnamese",
+            "English",
+            "Spanish",
+            "Swedish",
+            "Russian",
+            "Bahasa",
+            "Polish",
+            "Turkish",
+            "Thai"
+          ],
+          "enumDescriptions": [
+            "简体中文",
+            "繁體中文",
+            "にほんご",
+            "한국어",
+            "česky",
+            "Deutsch",
+            "française",
+            "italiano",
+            "Nederlands",
+            "português",
+            "tiếng Việt",
+            "english",
+            "español",
+            "Svenska",
+            "русский",
+            "bahasa",
+            "Polski",
+            "Turkish",
+            "ไทย"
+          ],
+          "type": "string"
+        },
+        "ultra-commit.AI_COMMIT_SYSTEM_PROMPT": {
+          "type": "string",
+          "default": "",
+          "description": "Custom system prompt for generating commit messages"
+        },
+        "ultra-commit.OPENAI_API_KEY": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API Key"
+        },
+        "ultra-commit.OPENAI_BASE_URL": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI BASE URL"
+        },
+        "ultra-commit.OPENAI_MODEL": {
+          "type": "string",
+          "default": "gpt-4",
+          "description": "OpenAI MODEL, you can select a model from the list by running the 'Show Available OpenAI Models' command"
+        },
+        "ultra-commit.OPENAI_TEMPERATURE": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "OpenAI temperature setting (0-2). Higher values make output more random, lower values more deterministic."
+        },
+        "ultra-commit.BAILIAN_API_KEY": {
+          "type": "string",
+          "default": "",
+          "description": "阿里云百炼 API Key"
+        },
+        "ultra-commit.BAILIAN_MODEL": {
+          "type": "string",
+          "default": "qwen-max",
+          "enum": [
+            "qwen-max",
+            "qwen-plus",
+            "qwen-turbo"
+          ],
+          "description": "阿里云百炼模型选择"
+        },
+        "ultra-commit.BAILIAN_TEMPERATURE": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "阿里云百炼温度参数，控制输出的随机性"
+        },
+        "ultra-commit.BAILIAN_TOP_P": {
+          "type": "number",
+          "default": 0.8,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "阿里云百炼核采样参数，控制输出的多样性"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "extension.ultra-commit",
+        "icon": {
+          "dark": "images/icon.svg",
+          "light": "images/icon.svg"
+        },
+        "title": "Ultra Commit"
+      },
+      {
+        "command": "ultra-commit.showAvailableModels",
+        "title": "Show Available OpenAI Models"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "extension.ultra-commit",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "main": "./dist/extension.js",
+  "scripts": {
+    "build": "webpack --mode production --devtool hidden-source-map",
+    "compile": "webpack",
+    "compile-tests": "tsc -p . --outDir out",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package --no-dependencies",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "publish": "vsce publish --no-dependencies",
+    "test": "node ./out/test/runTest.js",
+    "vscode:prepublish": "npm run build",
+    "watch": "webpack --watch",
+    "watch-tests": "tsc -p . -w --outDir out"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.77.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.36.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "axios": "^1.8.4",
+    "fs-extra": "^11.0.4",
+    "openai": "^4.14.2",
+    "simple-git": "^3.17.0"
+  },
+  "resolutions": {
+    "@types/node": "16.x"
+  },
+  "license": "MIT"
+}
