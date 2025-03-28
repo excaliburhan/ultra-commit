@@ -96,6 +96,11 @@
           "default": "",
           "description": "Custom system prompt for generating commit messages"
         },
+        "ultra-commit.GIT_DIFF_EXCLUDE": {
+          "type": "string",
+          "default": "package-lock.json,yarn.lock",
+          "description": "set git diff exlude rules, mutiple rules separated by commas, eg: '*.json,*.mock'"
+        },
         "ultra-commit.OPENAI_API_KEY": {
           "type": "string",
           "default": "",

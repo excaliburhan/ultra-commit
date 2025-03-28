@@ -43,16 +43,18 @@
 
 在 `VSCode` 设置中，找到 "ultra-commit" 配置项，并根据需要进行配置
 
-| 配置                |  类型  |   默认   | 必要 |                                                 备注                                                  |
-| :------------------ | :----: | :------: | :--: | :---------------------------------------------------------------------------------------------------: |
-| AI_PROVIDER         | string | bailian  | Yes  |                              Select AI Provider: `bailian` or `openai`.                               |
-| BAILIAN_API_KEY     | string |   None   | Yes  | 将`AI Provider`设置为`bailian`时需要。[Bailian API key](https://bailian.console.aliyun.com/?apiKey=1) |
-| BAILIAN_MODEL       | string | qwen-max | Yes  |                                 支持 qwen-max、qwen-plus、qwen-turbo                                  |
-| BAILIAN_TEMPERATURE | number |   0.7    |  No  |   `Bailian` 阿里云百炼温度参数，控制输出的随机性。范围：0-1。较低的值：更加集中，较高的值：更有创造   |
-| BAILIAN_TOP_P       | number |   0.8    |  否  |                     `Bailian` 阿里云百炼核采样参数，控制输出的多样性。范围：0-1。                     |
-| OPENAI_API_KEY      | string |   None   |  是  |                      [OpenAI 令牌](https://platform.openai.com/account/api-keys)                      |
-| OPENAI_BASE_URL     | string |   None   |  否  |          如果是 Azure，使用：https://{resource}.openai.azure.com/openai/deployments/{model}           |
-| OPENAI_MODEL        | string |  gpt-4o  |  是  |        OpenAI MODEL, 你可以通过运行 `Show Available OpenAI Models` 命令从列表中选择一个模型。         |
-| OPENAI_TEMPERATURE  | number |   0.7    |  否  |                 控制输出的随机性。范围：0-2。较低的值：更加集中，较高的值：更有创造性                 |
-| AI_COMMIT_LANGUAGE  | string |    en    |  是  |                                            支持 19 种语言                                             |
-| SYSTEM_PROMPT       | string |   None   |  否  |                                           自定义系统提示词                                            |
+| 配置                    |  类型  |   默认   | 必要 |                                                   备注                                                   |
+| :---------------------- | :----: | :------: | :--: | :------------------------------------------------------------------------------------------------------: |
+| AI_PROVIDER             | string | bailian  | Yes  |                                Select AI Provider: `bailian` or `openai`.                                |
+| BAILIAN_API_KEY         | string |   None   | Yes  |  将`AI Provider`设置为`bailian`时需要。[Bailian API key](https://bailian.console.aliyun.com/?apiKey=1)   |
+| BAILIAN_MODEL           | string | qwen-max | Yes  |                                   支持 qwen-max、qwen-plus、qwen-turbo                                   |
+| BAILIAN_TEMPERATURE     | number |   0.7    |  No  |    `Bailian` 阿里云百炼温度参数，控制输出的随机性。范围：0-1。较低的值：更加集中，较高的值：更有创造     |
+| BAILIAN_TOP_P           | number |   0.8    |  否  |                      `Bailian` 阿里云百炼核采样参数，控制输出的多样性。范围：0-1。                       |
+| OPENAI_API_KEY          | string |   None   |  是  |                       [OpenAI 令牌](https://platform.openai.com/account/api-keys)                        |
+| OPENAI_BASE_URL         | string |   None   |  否  |            如果是 Azure，使用：https://{resource}.openai.azure.com/openai/deployments/{model}            |
+| OPENAI_MODEL            | string |  gpt-4o  |  是  |          OpenAI MODEL, 你可以通过运行 `Show Available OpenAI Models` 命令从列表中选择一个模型。          |
+| OPENAI_TEMPERATURE      | number |   0.7    |  否  |                  控制输出的随机性。范围：0-2。较低的值：更加集中，较高的值：更有创造性                   |
+| AI_COMMIT_LANGUAGE      | string |    en    |  是  |                                              支持 19 种语言                                              |
+| SYSTEM_PROMPT           | string |   None   |  否  |                                             自定义系统提示词                                             |
+| GIT_DIFF_EXCLUDE        | string |   None   |  否  | 自定义不进行 diff 的文件，多个文件用逗号分隔，eg: '_.json,_.mock'，最后会转成 ':(exclude)\*.json' 的格式 |
+| AI_COMMIT_SYSTEM_PROMPT | string |   None   |  否  |                                             自定义系统提示词                                             |

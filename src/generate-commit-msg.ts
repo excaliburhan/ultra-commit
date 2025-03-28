@@ -72,9 +72,10 @@ export async function generateCommitMsg(arg) {
       const repo = await getRepo(arg);
 
       const aiProvider = configManager.getConfig<string>(ConfigKeys.AI_PROVIDER, 'bailian');
+      const gitDiffExclude = configManager.getConfig<string>(ConfigKeys.GIT_DIFF_EXCLUDE, '');
 
       progress.report({ message: `[${aiProvider}]Getting staged changes...` });
-      const { diff, error } = await getDiffStaged(repo);
+      const { diff, error } = await getDiffStaged(repo, gitDiffExclude);
 
       if (error) {
         throw new Error(`Failed to get staged changes: ${error}`);
