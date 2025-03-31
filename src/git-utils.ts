@@ -4,7 +4,7 @@ import * as vscode from 'vscode';
 /**
  * Retrieves the staged changes from the Git repository.
  */
-export async function getDiffStaged(repo: any): Promise<{ diff: string; error?: string }> {
+export async function getDiffStaged(repo: any, excludeRules?: string): Promise<{ diff: string; error?: string }> {
   try {
     const rootPath = repo?.rootUri?.fsPath || vscode.workspace.workspaceFolders?.[0].uri.fsPath;
 
@@ -13,7 +13,13 @@ export async function getDiffStaged(repo: any): Promise<{ diff: string; error?: 
     }
 
     const git = simpleGit(rootPath);
-    const diff = await git.diff(['--staged']);
+    const diffArgs = ['--staged'];
+    if (excludeRules) {
+      excludeRules.split(',').forEach((rule) => {
+        diffArgs.push(`:(exclude)${rule}`);
+      });
+    }
+    const diff = await git.diff(diffArgs);
 
     return {
       diff: diff || 'No changes staged.',
