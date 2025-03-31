@@ -3,9 +3,6 @@ import axios from 'axios';
 import { ConfigurationManager } from './config';
 import { ChatCompletion } from 'openai/resources';
 
-// AI Studio API 的基础 URL
-const AI_STUDIO_API_URL = 'https://idealab.alibaba-inc.com/api/openai/v1/chat/completions';
-
 interface AiStudioMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;
@@ -22,7 +19,7 @@ export function createAiStudioClient() {
   const config = ConfigurationManager.getInstance().getAiStudioConfig();
 
   return axios.create({
-    baseURL: AI_STUDIO_API_URL,
+    baseURL: config.baseUrl,
     headers: {
       Authorization: `Bearer ${config.apiKey}`,
       'Content-Type': 'application/json'

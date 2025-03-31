@@ -157,6 +157,11 @@
           "default": "",
           "description": "AI Studio API Key"
         },
+        "ultra-commit.AI_STUDIO_BASE_URL": {
+          "type": "string",
+          "default": "",
+          "description": "AI Studio BASE URL"
+        },
         "ultra-commit.AI_STUDIO_MODEL": {
           "type": "string",
           "default": "qwen2.5-max",

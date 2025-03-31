@@ -27,6 +27,7 @@ export enum ConfigKeys {
   BAILIAN_TOP_P = 'BAILIAN_TOP_P',
 
   AI_STUDIO_API_KEY = 'AI_STUDIO_API_KEY',
+  AI_STUDIO_BASE_URL = 'AI_STUDIO_BASE_URL',
   AI_STUDIO_MODEL = 'AI_STUDIO_MODEL',
 
   AI_PROVIDER = 'AI_PROVIDER',
@@ -89,6 +90,7 @@ export class ConfigurationManager {
   getAiStudioConfig() {
     return {
       apiKey: this.getConfig<string>(ConfigKeys.AI_STUDIO_API_KEY, ''),
+      baseUrl: this.getConfig<string>(ConfigKeys.AI_STUDIO_BASE_URL, ''),
       model: this.getConfig<string>(ConfigKeys.AI_STUDIO_MODEL, AI_STUDIO_MODELS.QWEN_MAX)
     };
   }
